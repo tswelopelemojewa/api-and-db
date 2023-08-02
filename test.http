@@ -1,0 +1,36 @@
+POST http://localhost:3008/api/greetings
+Content-Type: application/json
+
+{
+    "langage": "Tsonga",
+    "greeting": "Avxeni"
+}
+
+
+###
+
+GET http://localhost:3008/api/greetings
+
+
+###
+
+POST  http://localhost:3008/api/greetings/edit
+Content-Type: application/json
+
+{
+    "langage": "Tsonga-1",
+    "greeting": "Avuxeni",
+    "id": 17
+}
+
+
+###
+POST  http://localhost:3008/api/greetings/delete
+Content-Type: application/json
+
+{
+    "langage": "Tsonga-1",
+    "greeting": "Avuxeni",
+    "id": 17
+}
+
