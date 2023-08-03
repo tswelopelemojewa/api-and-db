@@ -65,8 +65,6 @@ app.post('/api/greetings/edit', async (req, res)=> {
 
 // endpont for update
 app.post('/api/greetings/delete', async (req, res)=> {
-    const langage = req.body.langage
-    const greeting = req.body.greeting
     const id = req.body.id
     // add langage
     await deleteGreeting(id);
@@ -74,7 +72,7 @@ app.post('/api/greetings/delete', async (req, res)=> {
 
     res.json({
         status: 'Success',
-        message: `greeting '${greeting}' for ${langage} with id ${id} has been deleted`
+        message: `greeting with id ${id} has been deleted`
 
         // langage, 
         // greeting

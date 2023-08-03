@@ -24,29 +24,94 @@
         greetMe: [],
         langage: '',
         greeting: '',
+        new_greet: '',
+        new_lang: '',
+        ed_id: '',
+        hide: false,
+        hide_forever: false,
+
+        init(){
+            this.greet();
+        
+        },
         greet(){
             axios.get('/api/greetings')
             .then(result => {
                 console.log(result.data)
-                this.greet = result.data.greetings
+                this.greetMe = result.data.greetings
             })
         },
+     
+
+
         addGreeting(){
-            axios.post('/api/greetings')
+            axios.post('/api/greetings', {
+                langage: this.new_lang,
+                greeting: this.new_greet
+              })
+            .then(result => {
+                
+                
+                this.langage = this.new_lang;
+                this.greeting = this.new_greet;
+
+                console.log(result.data)
+                //this.greet = result.data.greetings;
+                
+                
+            })
+            .then(result => {
+               this.greet();
+            })
+        },
+
+
+        editGreeting(langage, greeting, ed_id){
+            axios.post('/api/greetings/edit', {
+                langage: this.new_lang,
+                greeting: this.new_greet,
+                id: this.ed_id
+              })
+
             .then(result => {
                 console.log(result.data)
-                this.greet = result.data.greetings
+
+                this.greet();
             })
+        },
+
+
+
+
+       deleteLang(del_id){
+            axios.post('api/greetings/delete', {
+                langage: this.new_lang,
+                greeting: this.greeting,
+                id: del_id,
+              })
+
+              .then(result => {
+                console.log(result.data)
+                //this.greet = result.data.greetings
+                this.greet();
+            })
+
         }
 
     }">
+        <br>
         <h3>GREETING DB</h3>
-        <input type="text" placeholder="ente langage" x-model="new_lang" />
-        <input type="text" placeholder="ente greeting..." x-model="new_greet" />
-        <button class="btn btn-info">Add langage</button>
+        <br>
+        <input type="number" x-model="ed_id" x-show="hide_forever" />
+        <input type="text" class="form-control-sm" placeholder="enter language" x-model="new_lang" />
+        <input type="text" class="form-control-sm" placeholder="enter greeting..." x-model="new_greet" />
+        <button class="btn btn-info" @click="addGreeting" x-show="!hide">Add langage</button>
+        <button class="btn btn-dark" x-show="hide"
+            @click="(editGreeting), (hide=!hide), (this.greeting='', this.langage='') ">done</button>
+            
 
         <!-- GREETING WDGET -->
-        <table class="table">
+       <br> <table class="table">
             <thead>
                 <tr>
                     <th>
@@ -55,25 +120,32 @@
                     <th>
                         greetings
                     </th>
+
                     <th>
                         Actions
                     </th>
+
                 </tr>
             </thead>
 
             <tbody>
 
-                <template x-for="x in greet">
+                <template x-for="x in greetMe">
                     <tr>
                         <td x-text="x.langage"></td>
                         <td x-text="x.greeting"></td>
+
                         <td>
-                            <span>
-                                edit
-                            </span>
-                            <span>
-                                delete
-                            </span>
+                            <button class="btn" @click="(new_greet=x.greeting),(new_lang=x.langage),(ed_id=x.id), (hide=!hide)">
+                                <i class="fas fa-pen-to-square"></i>
+                            </button>
+                            
+                            <button class="btn" x-on:click="deleteLang(x.id)">
+                                <i class="fas fa-trash-can" ></i>
+                            </button>
+                            
+
+
                         </td>
                     </tr>
                 </template>

@@ -86,3 +86,14 @@ console.log("===========================================")
 const result2 = await getGreetings()
 console.log(result2)
 
+
+
+
+
+// greet(){
+//     axios.get('/api/greetings')
+//     .then(result => {
+//         console.log(result.data)
+//         this.greetMe = result.data.greetings
+//     })
+// },

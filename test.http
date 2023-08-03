@@ -18,9 +18,9 @@ POST  http://localhost:3008/api/greetings/edit
 Content-Type: application/json
 
 {
-    "langage": "Tsonga-1",
+    "langage": "Tsonga",
     "greeting": "Avuxeni",
-    "id": 17
+    "id": 21
 }
 
 
